@@ -12,6 +12,11 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^ index.php [L]
 
+    # Redirect to www
+    RewriteCond %{HTTP_HOST} ^[^.]+\.[^.]+$
+    RewriteCond %{HTTPS}s ^on(s)|
+    RewriteRule ^ http%1://www.%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
     <IfModule mod_env.c>
         # Let Pico know about available URL rewriting
         SetEnv PICO_URL_REWRITING 1
