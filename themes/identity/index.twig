@@ -17,10 +17,10 @@
 		<noscript><link rel="stylesheet" href="{{ theme_url }}/assets/css/noscript.css" /></noscript>
 		<script type="application/ld+json">
 		{
-		  "@context" : "http://schema.org",
-		  "@type" : "WebSite",
-		  "name" : "{{ site_title }}",
-		  "url" : "{{ base_url }}"
+			"@context" : "http://schema.org",
+			"@type" : "WebSite",
+			"name" : "{{ site_title }}",
+			"url" : "{{ base_url }}"
 		}
 		</script>
 	</head>
@@ -62,6 +62,17 @@
 				if ('addEventListener' in window) {
 					window.addEventListener('load', function() { document.body.className = document.body.className.replace(/\bis-loading\b/, ''); });
 					document.body.className += (navigator.userAgent.match(/(MSIE|rv:11\.0)/) ? ' is-ie' : '');
+				}
+				// iterate through all links
+				for (l of document.links) {
+					// open link in new tab/window if external url
+					if (l.hostname != window.location.hostname) {
+						l.target = '_blank';
+					}
+					// download if public key file
+					if (l.href.endsWith('.pub.asc')) {
+						l.setAttribute('download', '');
+					}
 				}
 			</script>
 	</body>
